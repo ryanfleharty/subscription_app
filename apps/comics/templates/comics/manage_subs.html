@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Manage your subscriptions</h1>
+<div class="row">
+    <div class="six columns">
+        <h2>Remove subscriptions</h2>
+        <form class="unsubscribe" action="{% url 'comics:unsubscribe_bulk' %}" method="post">
+            {% csrf_token %}
+            {% for comic in subscribed_comics %}
+            <input type="checkbox" name="comics_to_drop" value="{{comic.id}}">{{comic.title}}<br>
+            {% endfor %}
+            <input type="submit" name="" value="Unsubscribe">
+        </form>
+    </div>
+    <div class="six columns add_subs">
+        <h2>Add subscriptions</h2>
+        {% if other_comics %}
+        <form class="subscribe" action="{% url 'comics:subscribe_bulk' %}" method="post">
+            {% csrf_token %}
+            <select name="comics_to_add" class="add_sub_select">
+                <option disabled selected value> -- Choose a Title -- </option>
+                {% for comic in other_comics %}
+                <option value="{{comic.id}}">{{comic.title}}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" name="" value="Subscribe">
+        </form>
+        {% else %}
+        <p>Excelsior, true believer! You've subscribed to EVERY comic we've got!</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

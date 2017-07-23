@@ -1,0 +1,22 @@
+
+    {% for comic in series %}
+    {% if forloop.counter in row_starts %}
+    <div class="row">
+    {% endif %}
+    <div class="browse_comic_result three columns">
+        <div class="comic_list_image">
+            <a class="comic_link" href="{% url 'comics:show' comic.id %}">
+                <img src="{{comic.latest_issue.cover_image.url}}" alt="">
+            </a>
+        </div>
+        <div class="comic_list_link">
+            <a class="comic_link" href="{% url 'comics:show' comic.id %}">{{comic.title}}</a>
+        </div>
+    </div>
+    {% if forloop.counter in row_ends %}
+    </div>
+    {% elif forloop.counter.last %}
+    </div>
+    {% endif %}
+
+    {% endfor %}

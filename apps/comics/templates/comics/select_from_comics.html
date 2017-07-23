@@ -1,0 +1,7 @@
+
+    <select name="comics_to_add" class="add_sub">
+        <option disabled selected value> -- Choose a Title -- </option>
+        {% for comic in other_comics %}
+        <option value="{{comic.id}}">{{comic.title}}</option>
+        {% endfor %}
+    </select>

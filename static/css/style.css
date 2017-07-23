@@ -1,0 +1,40 @@
+
+button {
+    padding: 0px;
+    width: 100%
+}
+.nav-bar button {
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+}
+.nav-bar a {
+    width: 100%;
+    color: blue;
+    box-sizing: border-box;
+}
+
+ h1, h2, h3, h4, h5 {
+     text-align: center
+ }
+.browse_comic_result {
+    display: inline-block;
+}
+.browse_comic_result img {
+    width: 100%;
+}
+.comic_list_link {
+    text-align: center
+}
+.show_cover {
+    width: 100%;
+}
+.review p {
+    margin: .25em;
+}
+.comment {
+    margin-left: 1em;
+}
+.footer {
+    margin-top: 3em;
+}

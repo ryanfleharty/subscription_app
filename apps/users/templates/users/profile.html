@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if user.is_authenticated %}
+        <h1>Here is the profile of the current user</h1>
+        {{user.first_name}}
+        {{user.email}}
+        <p>{{user.profile.get_store_location_display}}</p>
+        <a href="{% url 'users:settings' %}">View account settings</a>
+        <h2>Current Subscriptions:</h2>
+        {% for series in subscriptions %}
+        <h3>{{ series.title}}</h3>
+        {% endfor %}
+{% else %}
+    <h2>No soup for you! log in first</h2>
+{% endif %}
+    {% endblock %}

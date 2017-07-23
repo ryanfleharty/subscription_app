@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if user.is_authenticated %}
+        <h1>Index of the users app is rendering</h1>
+        {% for user in users %}
+        {{user.first_name}}
+        {{user.email}}
+        {% endfor %}
+{% else %}
+    <h2>No soup for you! log in first</h2>
+{% endif %}
+    {% endblock %}

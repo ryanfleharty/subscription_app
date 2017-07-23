@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+    {% block content %}
+    <h2>{{series.title}}</h2>
+    <div class="row">
+        <div class="six columns series_cover">
+            <img src="{{series.latest_issue.cover_image.url}}" alt="The cover of {{series.title}}" class="show_cover">
+        </div>
+        <div class="six columns series_info">
+            <p>{{series.description}}</p>
+            <div class="row">
+                {% if user.is_authenticated %}
+                    {% if is_subscribed %}
+                    <a href="{% url 'comics:unsubscribe' series.id %}" class="one-half column"><button>Unsubscribe</button></a>
+                    {% else %}
+                    <a href="{% url 'comics:subscribe' series.id %}" class="one-half column"><button>Subscribe</button></a>
+                    {% endif %}
+                    <button type="button" name="review_button" class="one-half column">Add a review</button>
+                {% endif %}
+            </div>
+            <form class="view_issues" action="{% url 'comics:jump_to_issue' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="title" value="{{series.title}}">
+                <div class="row">
+                    <select class="issues_select four columns" name="issue_num">
+                        {% for issue in issues %}
+                        <option value="{{issue.number}}">{{issue.number}}</option>
+                        {% endfor %}
+                    </select>
+                    <button class="eight columns" type="submit" name="submit">View Issue</button>
+                </div>
+            </form>
+            <form hidden="true" class="add_review" action="{% url 'comics:add_review' series.id %}" method="post">
+                {% csrf_token %}
+                {{ review_form }}
+                <div class="">
+                    <button type="submit" name="">Add Review</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    {% for review in reviews %}
+    <div class="review">
+        <p>{{review.user}}</p>
+        <p>{{review.content}}</p>
+        <div class="row">
+            <button class="six columns" type="button" name="show_comments">Show Comments</button>
+            <button class="six columns" type="button" name="comment_button">Add a comment</button>
+        </div>
+        {% for comment in comments %}
+        {% if comment.review == review %}
+        <div class="comment" hidden="true">
+            <p>{{comment.user}}</p>
+            <p>{{comment.content}}</p>
+        </div>
+        {% endif %}
+        {% endfor %}
+        <form hidden="true" class="add_comment" action="{% url 'comics:add_comment' review.id %}" method="post">
+            {% csrf_token %}
+            {{ comment_form }}
+            <div class="">
+                <input type="submit" name="" value="Add comment">
+            </div>
+        </form>
+    </div>
+    {% endfor %}
+    {% endblock %}

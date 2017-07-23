@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+    {% block content %}
+    {% csrf_token %}
+    <div class="row">
+        <div class="six columns">
+            <label for="search">Search by Title:</label>
+            <input type="text" name="search" id="search" value="">
+        </div>
+        <div class="six columns">
+            <p>Browse by page</p>
+            {% for page in page_count %}
+            <a class="browse_page" href="#">{{page}}</a>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="comic_list" id="comic_list">
+            {% for comic in series %}
+            {% if forloop.counter in row_starts %}
+            <div class="row">
+            {% endif %}
+            <div class="browse_comic_result three columns">
+                <div class="comic_list_image">
+                    <a class="comic_link" href="{% url 'comics:show' comic.id %}">
+                        <img src="{{comic.latest_issue.cover_image.url}}" alt="">
+                    </a>
+                </div>
+                <div class="comic_list_link">
+                    <a class="comic_link" href="{% url 'comics:show' comic.id %}">{{comic.title}}</a>
+                </div>
+            </div>
+            {% if forloop.counter in row_ends %}
+            </div>
+            {% elif forloop.counter.last %}
+            </div>
+            {% endif %}
+            {% endfor %}
+    </div>
+    {% endblock %}

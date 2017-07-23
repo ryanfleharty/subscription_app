@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<form class="" action="{% url 'users:send_email' %}" method="post">
+    {% csrf_token %}
+    <label for="content">Mail content:</label>
+    <input type="textarea" name="content" value="">
+    <label for="recepient">Send To:</label>
+    <input type="text" name="recepient" value="">
+    <input type="submit" name="" value="send mail!">
+</form>
+{% endblock %}

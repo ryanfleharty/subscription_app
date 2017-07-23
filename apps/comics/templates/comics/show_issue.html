@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+    {% block content %}
+    <h2>{{issue.title}}</h2>
+    <div class="row">
+        <div class="comic_image_field six columns">
+            <img src="{{issue.cover_image.url}}" alt="The cover of {{issue.title}}" class="show_cover">
+        </div>
+        <div class="comic_description_field six columns">
+            <p>{{issue.description}}</p>
+            {% if user.is_authenticated %}
+                <button type="button" name="review_button">Add a review</button>
+                <form hidden="true" class="add_review" action="{% url 'comics:add_issue_review' series.title issue.number %}" method="post">
+                    {% csrf_token %}
+                    {{ review_form }}
+                    <div class="">
+                        <input type="submit" name="" value="Add Review">
+                    </div>
+                </form>
+            {% endif %}
+            <a href="{% url 'comics:show_by_title' series.title %}"><button type="button" name="button">Series Overview</button></a>
+        </div>
+    </div>
+
+    {% for review in reviews %}
+    <div class="comic_review">
+        <p>{{review.user}}</p>
+        <p>{{review.content}}</p>
+        <button type="button" name="comment_button">Add a comment</button>
+        <form hidden="true" class="add_comment" action="{% url 'comics:add_comment' review.id %}" method="post">
+            {% csrf_token %}
+            {{ comment_form }}
+            <div class="">
+                <input type="submit" name="" value="Add comment">
+            </div>
+        </form>
+    </div>
+    {% endfor %}
+    {% endblock %}

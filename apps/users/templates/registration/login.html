@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Login </h2>
+<div class="row">
+<form class="login_form four columns offset-by-four" action="{% url 'users:login' %}" method="post">
+    {% csrf_token %}
+    <div class="">
+        {{form.username.label_tag}}{{form.username}}
+        {% if form.first_name.errors %}
+            {% for error in form.username.errors %}
+            <p class=form_error>{{error}}</p>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div class="">
+        {{form.password.label_tag}}{{form.password}}
+        {% if form.password.errors %}
+            {% for error in form.password.errors %}
+            <p class=form_error>{{error}}</p>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div class="row">
+        <button class="" type="submit" name="" value="Login!">Login</button>
+    </div>
+</form>
+</div>
+<div class="row">
+    <div class="four columns">
+        <a href="{% url 'users:password_reset' %}"><button type="button" name="button">Forgot Password?</button></a>
+    </div>
+    <div class="four columns">
+        <a href="{% url 'users:register' %}"><button type="button" name="button">Register</button></a>
+    </div>
+    <div class="four columns">
+        <a href="{% url 'social:begin' 'facebook' %}"><button type="button" name="button">Login with Facebook</button></a>
+    </div>
+</div>
+{% endblock %}
