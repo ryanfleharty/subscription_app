@@ -4,6 +4,11 @@
 <div class="row">
 <form class="login_form four columns offset-by-four" action="{% url 'users:login' %}" method="post">
     {% csrf_token %}
+    <div class="login_errors">
+        {% if form.errors %}
+            <p class=form_error>Not a valid username/password combination</p>
+        {% endif %}
+    </div>
     <div class="">
         {{form.username.label_tag}}{{form.username}}
         {% if form.first_name.errors %}
@@ -20,7 +25,7 @@
             {% endfor %}
         {% endif %}
     </div>
-    <div class="row">
+    <div class="row login_submit">
         <button class="" type="submit" name="" value="Login!">Login</button>
     </div>
 </form>

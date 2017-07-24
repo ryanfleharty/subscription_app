@@ -7,6 +7,7 @@
         </div>
         <div class="comic_description_field six columns">
             <p>{{issue.description}}</p>
+            <a href="{% url 'comics:show_by_title' series.title %}"><button type="button" name="button">Series Overview</button></a>
             {% if user.is_authenticated %}
                 <button type="button" name="review_button">Add a review</button>
                 <form hidden="true" class="add_review" action="{% url 'comics:add_issue_review' series.title issue.number %}" method="post">
@@ -16,8 +17,9 @@
                         <input type="submit" name="" value="Add Review">
                     </div>
                 </form>
+            {% else %}
+                <a href="{% url 'users:login' %}"><button type="button" name="button">Login to review</button></a>
             {% endif %}
-            <a href="{% url 'comics:show_by_title' series.title %}"><button type="button" name="button">Series Overview</button></a>
         </div>
     </div>
 

@@ -3,7 +3,8 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title></title>
+        <meta name="viewport" content="width=device-width">
+        <title>Demo Comics App</title>
         {% load static %}
         <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
         <link rel="stylesheet" href="{% static 'css/skeleton.css' %}">
@@ -16,7 +17,7 @@
         <!--<script src="{% static 'js/facebook_init.js' %}"></script> -->
         <div class="container">
             <h2>DEMO VERSION</h2>
-            <h5>Feel free to play around, this isn't the real site!</h5>
+            <h5>Do whatever you like, this is just the prototype!</h5>
             <div class="row nav_bar">
                 {% if user.is_authenticated %}
                 <div class="three columns nav_div">
@@ -46,7 +47,7 @@
             </div>
             <div class="row footer">
                 <div class="six columns offset-by-three">
-                    <a href="http://www.chimerascomics.com"><button type="button" name="button">Return to Chimera's Comics</button></a>
+                    <a href="http://www.ryanfleharty.com"><button type="button" name="button">Return to Portfolio Site</button></a>
                 </div>
             </div>
         </div>

@@ -6,17 +6,8 @@
             <img src="{{series.latest_issue.cover_image.url}}" alt="The cover of {{series.title}}" class="show_cover">
         </div>
         <div class="six columns series_info">
-            <p>{{series.description}}</p>
-            <div class="row">
-                {% if user.is_authenticated %}
-                    {% if is_subscribed %}
-                    <a href="{% url 'comics:unsubscribe' series.id %}" class="one-half column"><button>Unsubscribe</button></a>
-                    {% else %}
-                    <a href="{% url 'comics:subscribe' series.id %}" class="one-half column"><button>Subscribe</button></a>
-                    {% endif %}
-                    <button type="button" name="review_button" class="one-half column">Add a review</button>
-                {% endif %}
-            </div>
+            <h4>Next issue {{series.latest_issue.ship_date}}</h4>
+            <p>{{series.latest_issue.description}}</p>
             <form class="view_issues" action="{% url 'comics:jump_to_issue' %}" method="post">
                 {% csrf_token %}
                 <input type="hidden" name="title" value="{{series.title}}">
@@ -29,6 +20,18 @@
                     <button class="eight columns" type="submit" name="submit">View Issue</button>
                 </div>
             </form>
+            <div class="row">
+                {% if user.is_authenticated %}
+                    {% if is_subscribed %}
+                    <a href="{% url 'comics:unsubscribe' series.id %}" class="one-half column"><button>Unsubscribe</button></a>
+                    {% else %}
+                    <a href="{% url 'comics:subscribe' series.id %}" class="one-half column"><button>Subscribe</button></a>
+                    {% endif %}
+                    <button type="button" name="review_button" class="one-half column">Add a review</button>
+                {% else %}
+                    <a href="{% url 'users:login' %}"><button type="button" name="button">Login to review</button></a>
+                {% endif %}
+            </div>
             <form hidden="true" class="add_review" action="{% url 'comics:add_review' series.id %}" method="post">
                 {% csrf_token %}
                 {{ review_form }}

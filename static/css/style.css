@@ -35,6 +35,9 @@ button {
 .comment {
     margin-left: 1em;
 }
+.login_submit {
+    margin-bottom: 2em;
+}
 .footer {
     margin-top: 3em;
 }
