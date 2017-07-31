@@ -2,3 +2,5 @@
 djangoEnv/
 settings.py
 facebook_init.js
+db.sqlite3
+media/
